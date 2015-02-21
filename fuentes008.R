@@ -164,6 +164,8 @@ dim(inetotal)
 #####
 # restart
 
+
+
 #####
 # Cargamos algunas librerías, pa grafiquitos etc
 library(ggplot2)
@@ -172,6 +174,8 @@ library(stringr)
 
 rm(list=ls())
 gc()
+
+setwd("C:/Users/pedroc/Desktop/repos2015/hackaton_2_2015")
 
 #load("censo2011.RData")
 pob.total <- get(load("ine_02003.RData"))
@@ -285,9 +289,56 @@ write.table(total2, file = "tasas_total.csv",
 
 load("kk.rda")
 
-colnames(kk)
-table(presos$comunidad)
+NAME_1 <- colnames(kk)
+NAME_2 <- rownames(table(presos$comunidad))
 
+zz <- as.data.frame(cbind(as.character(NAME_1), 
+                          as.character(NAME_2)))
+
+names(zz)[1] <- "NAME_1"
+names(zz)[2] <- "NAME_2"
+
+zz$NAME_2[zz$NAME_1 == "Andalucía"] <- "andalucia"
+zz$NAME_2[zz$NAME_1 == "Aragón"] <- "aragon"
+zz$NAME_2[zz$NAME_1 == "Cantabria"] <- "cantabria"
+zz$NAME_2[zz$NAME_1 == "Castilla-La Mancha"] <- "castilla_la_mancha"
+zz$NAME_2[zz$NAME_1 == "Castilla y León"] <- "castilla_leon"
+zz$NAME_2[zz$NAME_1 == "Cataluña"] <- "catalunya"
+#zz$NAME_2[zz$NAME_1 == "Ceuta y Melilla"] <- "ceuta_melilla"
+zz$NAME_2[zz$NAME_1 == "Comunidad de Madrid"] <- "madrid"
+zz$NAME_2[zz$NAME_1 == "Comunidad Foral de Navarra"] <- "navarra"
+zz$NAME_2[zz$NAME_1 == "Comunidad Valenciana"] <- "c_valenciana"
+zz$NAME_2[zz$NAME_1 == "Extremadura"] <- "extremadura"
+zz$NAME_2[zz$NAME_1 == "Galicia"] <- "galicia"
+zz$NAME_2[zz$NAME_1 == "Islas Baleares"] <- "baleares"
+zz$NAME_2[zz$NAME_1 == "Islas Canarias"] <- "canarias"
+zz$NAME_2[zz$NAME_1 == "La Rioja"] <- "rioja"
+zz$NAME_2[zz$NAME_1 == "País Vasco"] <- "pais_vasco"
+zz$NAME_2[zz$NAME_1 == "Principado de Asturias"] <- "asturias"
+zz$NAME_2[zz$NAME_1 == "Región de Murcia"] <- "murcia"
+zz$NAME_2[zz$NAME_1 == "Islas Canarias"] <- "canarias"
+
+
+
+
+
+ggplot(data=presos.prop.total[presos.prop.total$comunidad == "castilla_leon",], 
+       aes(x=year, 
+           y=tasa, 
+           group = comunidad, 
+           colour = comunidad)) +
+  geom_line() +
+  geom_point( size=0.5, shape=21, fill="white") +
+  ylim(0, 30)
+
+ggplot(data=presos.prop.total[presos.prop.total$comunidad == "madrid",], 
+       aes(x=year, 
+           y=tasa, 
+           group = comunidad, 
+           colour = comunidad)) +
+  geom_line() +
+  geom_point( size=0.5, shape=21, fill="white") +
+  ylim(0, 30)
 
 save.image(file = "prisons_wkspace.RData")
 
