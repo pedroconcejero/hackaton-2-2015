@@ -321,8 +321,26 @@ zz$NAME_2[zz$NAME_1 == "Islas Canarias"] <- "canarias"
 
 
 
+ggplot(data=presos.prop.total[presos.prop.total$comunidad == "andalucia",], 
+       aes(x=year, 
+           y=tasa, 
+           group = comunidad, 
+           colour = comunidad)) +
+  geom_line() +
+  geom_point( size=0.5, shape=21, fill="white") +
+  ylim(0, 30)
+
 
 ggplot(data=presos.prop.total[presos.prop.total$comunidad == "castilla_leon",], 
+       aes(x=year, 
+           y=tasa, 
+           group = comunidad, 
+           colour = comunidad)) +
+  geom_line() +
+  geom_point( size=0.5, shape=21, fill="white") +
+  ylim(0, 30)
+
+ggplot(data=presos.prop.total[presos.prop.total$comunidad == "catalunya",], 
        aes(x=year, 
            y=tasa, 
            group = comunidad, 
@@ -339,6 +357,8 @@ ggplot(data=presos.prop.total[presos.prop.total$comunidad == "madrid",],
   geom_line() +
   geom_point( size=0.5, shape=21, fill="white") +
   ylim(0, 30)
+
+
 
 save.image(file = "prisons_wkspace.RData")
 
